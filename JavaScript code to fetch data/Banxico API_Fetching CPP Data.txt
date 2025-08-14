@@ -1,0 +1,184 @@
+// For more details please read my article on Medium: https://chomchom216.medium.com/
+// Thank you. Dr. Robert Hernández Martínez
+// robert@actuariayfinanzas.net
+// Badges: https://www.credly.com/users/robert-hernandez.89bffe7b/badges#credly
+
+
+function importCPPData() {
+  // Token - API de Banxico
+  var token = "5cec8fbf16c0d5aaad4816e1a6069839d82d5962de8a5899577d1b728fb887b2";
+  
+  // Date range: August 1975 to present
+  var startDate = "1975-08-01";
+  var endDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
+  
+  // URL for data serie item - CPP (SF285) - Annual Interest Rate
+  var baseUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1";
+  var url = baseUrl + "/series/SF285/datos/" + startDate + "/" + endDate;
+  
+  // Options for HTTP request
+  var options = {
+    "headers": {
+      "Bmx-Token": token,
+      "Accept": "application/json"
+    }
+  };
+  
+  Logger.log("Requesting data from Banxico API...");
+  Logger.log("URL: " + url);
+  
+  try {
+    // API request
+    var response = UrlFetchApp.fetch(url, options);
+    var json = JSON.parse(response.getContentText());
+    var seriesData = json.bmx.series[0].datos;
+    
+    Logger.log("Raw data received: " + seriesData.length + " records");
+    
+    // Log a few sample records to debug
+    for (var i = 0; i < Math.min(3, seriesData.length); i++) {
+      Logger.log("Sample record " + i + ": " + JSON.stringify(seriesData[i]));
+    }
+    
+    // Data processing with better error handling
+    var data = [];
+    var errorCount = 0;
+    
+    seriesData.forEach(function(item, index) {
+      try {
+        // Parse the date string from API (comes in DD/MM/YYYY format)
+        var dateStr = item.fecha;
+        var dateParts = dateStr.split('/');
+        
+        if (dateParts.length !== 3) {
+          Logger.log("Invalid date format at index " + index + ": " + dateStr);
+          errorCount++;
+          return;
+        }
+        
+        var day = parseInt(dateParts[0], 10);
+        var month = parseInt(dateParts[1], 10) - 1; // JavaScript months are 0-based
+        var year = parseInt(dateParts[2], 10);
+        
+        var date = new Date(year, month, day);
+        
+        // Check if date is valid
+        if (isNaN(date.getTime())) {
+          Logger.log("Invalid date created at index " + index + ": " + dateStr);
+          errorCount++;
+          return;
+        }
+        
+        // Process the value - divide by 100 for percentage formatting
+        var value = null;
+        if (item.dato && item.dato !== "N/E") {
+          var parsedValue = parseFloat(item.dato);
+          if (!isNaN(parsedValue)) {
+            value = parsedValue / 100; // Convert to decimal for percentage formatting
+          }
+        }
+        
+        data.push({
+          date: date,
+          value: value
+        });
+        
+      } catch (e) {
+        Logger.log("Error processing record " + index + ": " + e.toString());
+        errorCount++;
+      }
+    });
+    
+    Logger.log("Processed " + data.length + " valid records, " + errorCount + " errors");
+    
+    if (data.length === 0) {
+      throw new Error("No valid data to process");
+    }
+    
+    // Sort by date (ascending)
+    data.sort(function(a, b) {
+      return a.date - b.date;
+    });
+    
+    Logger.log("Date range: from " + data[0].date.toLocaleDateString() + " to " + data[data.length - 1].date.toLocaleDateString());
+    
+    // Get or create spreadsheet
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheetName = "Data CPP";
+    var sheet = ss.getSheetByName(sheetName);
+    
+    if (sheet) {
+      sheet.clear();
+    } else {
+      sheet = ss.insertSheet(sheetName);
+    }
+    
+    // Build 2D array for batch writing
+    var sheetData = [];
+    
+    // Add headers - make sure this is an array with exactly 2 elements
+    sheetData.push(["Date (DD/MM/YYYY)", "CPP - Annual Rate"]);
+    
+    // Add data rows - write actual Date objects, not formatted strings
+    data.forEach(function(item) {
+      sheetData.push([item.date, item.value]);
+    });
+    
+    Logger.log("Preparing to write " + sheetData.length + " rows to Spreadsheet");
+    Logger.log("First data row: " + JSON.stringify(sheetData[1]));
+    Logger.log("Last data row: " + JSON.stringify(sheetData[sheetData.length - 1]));
+    
+    // Write data to spreadsheet
+    if (sheetData.length > 1) {
+      // Clear any existing content first
+      sheet.getRange(1, 1, sheet.getMaxRows(), sheet.getMaxColumns()).clearContent();
+      
+      // Write the data
+      var range = sheet.getRange(1, 1, sheetData.length, 2);
+      range.setValues(sheetData);
+      
+      // Format the columns
+      if (sheetData.length > 1) {
+        // Date column formatting - dd/MM/yyyy format
+        var dateRange = sheet.getRange(2, 1, sheetData.length - 1, 1);
+        dateRange.setNumberFormat("dd/MM/yyyy");
+        
+        // Value column formatting - percentage with 2 decimal places
+        var valueRange = sheet.getRange(2, 2, sheetData.length - 1, 1);
+        valueRange.setNumberFormat("0.00%");
+      }
+      
+      // Auto-resize columns
+      sheet.autoResizeColumns(1, 2);
+      
+      Logger.log("Successfully wrote " + (sheetData.length - 1) + " data rows to spreadsheet");
+      
+    } else {
+      Logger.log("No data rows to write");
+    }
+    
+  } catch (e) {
+    Logger.log("Import Error: " + e.toString());
+    Logger.log("Stack: " + e.stack);
+    
+    // Show error to user
+    try {
+      SpreadsheetApp.getUi().alert(
+        'Import Error',
+        'Failed to import data: ' + e.toString(),
+        SpreadsheetApp.getUi().ButtonSet.OK
+      );
+    } catch (uiError) {
+      // If UI alert fails, just log it
+      Logger.log("Could not show UI alert: " + uiError.toString());
+    }
+  }
+}
+
+// Menu function
+//function onOpen() {
+//  var ui = SpreadsheetApp.getUi();
+//  ui.createMenu('Banxico Data')
+//    .addItem('Fetch CPP Data', 'importCPPData')
+//    .addToUi();
+//}

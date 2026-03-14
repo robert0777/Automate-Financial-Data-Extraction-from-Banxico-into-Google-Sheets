@@ -1,0 +1,91 @@
+// For more details please read my article on Medium: https://chomchom216.medium.com/
+// Thank you. Dr. Robert Hernández Martínez
+// robert@actuariayfinanzas.net
+// Badges: https://www.credly.com/users/robert-hernandez.89bffe7b/badges#credly
+
+
+//function onOpen() {
+//  var ui = SpreadsheetApp.getUi();
+//  ui.createMenu('Banxico Data')
+//    .addItem('Fetch ALL Data', 'importAllData')
+//    .addSeparator()
+//    .addItem('Fetch CETES 28 Data', 'importCETES28Data')
+//    .addItem('Fetch CPP Data', 'importCPPData')
+//    .addItem('Fetch TIIP Data', 'importTIIPData')
+//    .addItem('Fetch INPC Data', 'importINPCData')
+//    .addItem('Fetch Salario Minimo Data', 'importSalarioMinimoData')
+
+//    .addItem('Fetch Exchange Rate Data', 'importExchangeRateData')
+//    .addItem('Fetch UDIs Data', 'importUDIsData')
+//    .addItem('Fetch IPC BMV Data', 'importIPC_BMVData')
+//    .addToUi();
+//}
+
+// Master function to execute all imports
+function importAllData() {
+  Logger.log("Starting import of all Banxico data...");
+  
+  try {
+    importCETES28Data();
+    Logger.log("✓ CETES 28-days data imported successfully");
+
+
+    importCETES91Data();
+    Logger.log("✓ CETES 91-days data imported successfully");
+
+    importBONDES3YData();
+    Logger.log("✓ BONDES 3-years data imported successfully");
+
+
+    importUDIBONOS3YData();
+    Logger.log("✓ UDIBONOS 3-years data imported successfully");
+
+
+
+
+
+
+    
+    importCPPData();
+    Logger.log("✓ CPP data imported successfully");
+    
+    importTIIPData();
+    Logger.log("✓ TIIP data imported successfully");
+    
+    importINPCData();
+    Logger.log("✓ INPC data imported successfully");
+    
+    importSalarioMinimoData();
+    Logger.log("✓ Salario Minimo data imported successfully");
+    
+
+
+
+    importExchangeRateData();
+    Logger.log("✓ Exchange Rate data imported successfully");
+
+
+
+
+    importUDIsData();
+    Logger.log("✓ UDIs data imported successfully");
+
+    importIPC_BMVData();
+    Logger.log("✓ IPC BMV data imported successfully");
+
+
+    importCreditoHogaresData();
+    Logger.log("✓ Tasa de Crédito a los Hogares data imported successfully");
+
+
+
+    Logger.log("All data imports completed successfully!");
+    
+    // Optional: Show completion message to user
+    SpreadsheetApp.getUi().alert('Success', 'All Banxico data has been imported successfully!', SpreadsheetApp.getUi().ButtonSet.OK);
+    
+  } catch (error) {
+    Logger.log("Error during batch import: " + error.toString());
+    SpreadsheetApp.getUi().alert('Error', 'An error occurred during import: ' + error.toString(), SpreadsheetApp.getUi().ButtonSet.OK);
+  }
+}

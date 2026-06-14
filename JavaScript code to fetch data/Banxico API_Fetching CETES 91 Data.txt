@@ -12,7 +12,7 @@ function importCETES91Data() {
   var startDate = "1978-01-01";
   var endDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
   
-  // URL for data serie item - CETES (SF3338) - Annual Interest Rate
+  // URL for data serie item - CETES91 (SF3338) - Annual Interest Rate
   // Verify Serie ID before executing
   var baseUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1";
   var url = baseUrl + "/series/SF3338/datos/" + startDate + "/" + endDate;
@@ -180,6 +180,6 @@ function importCETES91Data() {
 //function onOpen() {
 //  var ui = SpreadsheetApp.getUi();
 //  ui.createMenu('Banxico Data')
-//    .addItem('Fetch CETES Data', 'importCETES91Data')
+//    .addItem('Fetch CETES 91 Data', 'importCETES91Data')
 //    .addToUi();
 //

@@ -4,7 +4,7 @@
 // Badges: https://www.credly.com/users/robert-hernandez.89bffe7b/badges#credly
 
 
-function importExchangeRateData() {
+function importExchangeRateMXN_USDData() {
   // Token - API de Banxico
   var token = "5cec8fbf16c0d5aaad4816e1a6069839d82d5962de8a5899577d1b728fb887b2";
   
@@ -179,6 +179,6 @@ function importExchangeRateData() {
 //function onOpen() {
 //  var ui = SpreadsheetApp.getUi();
 //  ui.createMenu('Banxico Data')
-//    .addItem('Fetch Exchange Rate MXN/USD', 'importExchangeRateData')
+//    .addItem('Fetch Exchange Rate MXN/USD', 'importExchangeRateMXN_USDData')
 //    .addToUi();
 //}

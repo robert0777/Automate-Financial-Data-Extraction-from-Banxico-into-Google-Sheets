@@ -4,18 +4,17 @@
 // Badges: https://www.credly.com/users/robert-hernandez.89bffe7b/badges#credly
 
 
-function importCETES28Data() {
+function importTIIE28Data() {
   // Token - API de Banxico
   var token = "5cec8fbf16c0d5aaad4816e1a6069839d82d5962de8a5899577d1b728fb887b2";
   
-  // Date range: February 1985 to present
-  var startDate = "1985-02-01";
+  // Date range: March 1993 to present
+  var startDate = "1995-03-01";
   var endDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
   
-  // URL for data serie item - CETES28 (SF282) - Annual Interest Rate
-  // Verify Serie ID before executing
+  // URL for data serie item - TIIE28 (SF283) - Annual Interest Rate
   var baseUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1";
-  var url = baseUrl + "/series/SF282/datos/" + startDate + "/" + endDate;
+  var url = baseUrl + "/series/SF283/datos/" + startDate + "/" + endDate;
   
   // Options for HTTP request
   var options = {
@@ -105,7 +104,7 @@ function importCETES28Data() {
     
     // Get or create spreadsheet
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheetName = "Data CETES 28";
+    var sheetName = "Data TIIE 28";
     var sheet = ss.getSheetByName(sheetName);
     
     if (sheet) {
@@ -118,7 +117,7 @@ function importCETES28Data() {
     var sheetData = [];
     
     // Add headers - make sure this is an array with exactly 2 elements
-    sheetData.push(["Date (DD/MM/YYYY)", "CETES 28 - Annual Rate"]);
+    sheetData.push(["Date (DD/MM/YYYY)", "TIIE 28 - Annual Rate"]);
     
     // Add data rows - write actual Date objects, not formatted strings
     data.forEach(function(item) {
@@ -180,6 +179,6 @@ function importCETES28Data() {
 //function onOpen() {
 //  var ui = SpreadsheetApp.getUi();
 //  ui.createMenu('Banxico Data')
-//    .addItem('Fetch CETES 28 Data', 'importCETES28Data')
+//    .addItem('Fetch TIIE 28 Data', 'importTIIE28Data')
 //    .addToUi();
 //}

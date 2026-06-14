@@ -10,14 +10,24 @@
 //    .addItem('Fetch ALL Data', 'importAllData')
 //    .addSeparator()
 //    .addItem('Fetch CETES 28 Data', 'importCETES28Data')
+//    .addItem('Fetch CETES 91 Data', 'importCETES91Data')
+//    .addItem('Fetch CETES 182 Data', 'importCETES182Data')
 //    .addItem('Fetch CPP Data', 'importCPPData')
-//    .addItem('Fetch TIIP Data', 'importTIIPData')
+//    .addItem('Fetch TIIP 28 Data', 'importTIIP28Data')
+//    .addItem('Fetch TIIE 28 Data', 'importTIIE28Data')
+//    .addItem('Fetch BONDES 3Y Data', 'importBONDES3YData')
+//    .addItem('Fetch UDIBONOS 3Y Data', 'importUDIBONOS3YData')
+
+
 //    .addItem('Fetch INPC Data', 'importINPCData')
 //    .addItem('Fetch Salario Minimo Data', 'importSalarioMinimoData')
 
-//    .addItem('Fetch Exchange Rate Data', 'importExchangeRateData')
+//    .addItem('Fetch Exchange Rate MXN/USD', 'importExchangeRateMXN_USDData')
 //    .addItem('Fetch UDIs Data', 'importUDIsData')
 //    .addItem('Fetch IPC BMV Data', 'importIPC_BMVData')
+
+//    .addItem('Fetch Tasa Crédito a los Hogares Data', 'importCreditoHogaresData')
+
 //    .addToUi();
 //}
 
@@ -32,6 +42,20 @@ function importAllData() {
 
     importCETES91Data();
     Logger.log("✓ CETES 91-days data imported successfully");
+
+
+
+    importCETES182Data();
+    Logger.log("✓ CETES 182-days data imported successfully");
+
+    importTIIP28Data();
+    Logger.log("✓ TIIP 28-days data imported successfully");
+
+
+
+    importTIIE28Data();
+    Logger.log("✓ TIIE 28-days data imported successfully");
+
 
     importBONDES3YData();
     Logger.log("✓ BONDES 3-years data imported successfully");
@@ -49,8 +73,7 @@ function importAllData() {
     importCPPData();
     Logger.log("✓ CPP data imported successfully");
     
-    importTIIPData();
-    Logger.log("✓ TIIP data imported successfully");
+
     
     importINPCData();
     Logger.log("✓ INPC data imported successfully");
@@ -61,7 +84,7 @@ function importAllData() {
 
 
 
-    importExchangeRateData();
+    importExchangeRateMXN_USDData();
     Logger.log("✓ Exchange Rate data imported successfully");
 
 

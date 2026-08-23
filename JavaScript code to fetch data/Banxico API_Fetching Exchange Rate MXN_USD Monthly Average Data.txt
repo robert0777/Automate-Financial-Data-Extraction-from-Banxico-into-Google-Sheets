@@ -179,6 +179,6 @@ function importExchangeRateMXN_USDMonthlyAverageData() {
 //function onOpen() {
 //  var ui = SpreadsheetApp.getUi();
 //  ui.createMenu('Banxico Data')
-//    .addItem('Fetch Exchange Rate MXN/USD Monthly Average', 'importExchangeRateMXN_USDMonthlyAverageDataData')
+//    .addItem('Fetch Exchange Rate MXN/USD Monthly Average', 'importExchangeRateMXN_USDMonthlyAverageData')
 //    .addToUi();
 //}

@@ -10,6 +10,7 @@
 //    .addItem('Fetch ALL Data', 'importAllData')
 //    .addSeparator()
 //    .addItem('Fetch CETES 28 Data', 'importCETES28Data')
+//    .addItem('Fetch CETES 28 Weekly Auction Data', 'importCETES28SubastaSemanalDataData')
 //    .addItem('Fetch CETES 91 Data', 'importCETES91Data')
 //    .addItem('Fetch CETES 182 Data', 'importCETES182Data')
 //    .addItem('Fetch CPP Data', 'importCPPData')
@@ -20,13 +21,16 @@
 
 
 //    .addItem('Fetch INPC Data', 'importINPCData')
-//    .addItem('Fetch Salario Minimo Data', 'importSalarioMinimoData')
+//    .addItem('Fetch Salario Minimo Daily MXN Data', 'importSalarioMinimoData')
 
-//    .addItem('Fetch Exchange Rate MXN/USD', 'importExchangeRateMXN_USDData')
+//    .addItem('Fetch Exchange Rate MXN/USD Monthly Average', 'importExchangeRateMXN_USDMonthlyAverageData')
+//    .addItem('Fetch Exchange Rate MXN/USD Daily FIX', 'importExchangeRateMXN_USDDailyFIXData')
+
 //    .addItem('Fetch UDIs Data', 'importUDIsData')
 //    .addItem('Fetch IPC BMV Data', 'importIPC_BMVData')
 
 //    .addItem('Fetch Tasa Crédito a los Hogares Data', 'importCreditoHogaresData')
+//    .addItem('Fetch PIB Nominal Value Quarterly Data', 'importPIBNominalValueData')
 
 //    .addToUi();
 //}
@@ -38,6 +42,12 @@ function importAllData() {
   try {
     importCETES28Data();
     Logger.log("✓ CETES 28-days data imported successfully");
+
+
+
+    importCETES28SubastaSemanalData();
+    Logger.log("✓ CETES 28-days Weekly Auction data imported successfully");
+
 
 
     importCETES91Data();
@@ -79,13 +89,18 @@ function importAllData() {
     Logger.log("✓ INPC data imported successfully");
     
     importSalarioMinimoData();
-    Logger.log("✓ Salario Minimo data imported successfully");
+    Logger.log("✓ Salario Minimo Daily MXN data imported successfully");
     
 
 
+    importExchangeRateMXN_USDDailyFIXData();
+    Logger.log("✓ Exchange Rate Daily FIX data imported successfully");
 
-    importExchangeRateMXN_USDData();
-    Logger.log("✓ Exchange Rate data imported successfully");
+
+
+
+    importExchangeRateMXN_USDMonthlyAverageData();
+    Logger.log("✓ Exchange Rate Monthly Average data imported successfully");
 
 
 
@@ -100,6 +115,9 @@ function importAllData() {
     importCreditoHogaresData();
     Logger.log("✓ Tasa de Crédito a los Hogares data imported successfully");
 
+
+    importPIBNominalValueData();
+    Logger.log("✓ PIB Nominal Value Quarterly data imported successfully");
 
 
     Logger.log("All data imports completed successfully!");

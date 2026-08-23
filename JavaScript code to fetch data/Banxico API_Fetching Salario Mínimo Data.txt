@@ -12,7 +12,7 @@ function importSalarioMinimoData() {
   var startDate = "1964-01-01";
   var endDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
   
-  // URL for data serie item - Salario Mínimo (SL11298) - Annual Interest Rate
+  // URL for data serie item - Salario Mínimo (SL11298) - Daily MXN
   var baseUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1";
   var url = baseUrl + "/series/SL11298/datos/" + startDate + "/" + endDate;
   
@@ -69,12 +69,12 @@ function importSalarioMinimoData() {
           return;
         }
         
-        // Process the value - divide by 100 for percentage formatting
+        // Process the value - divide by 1 - No impact at all
         var value = null;
         if (item.dato && item.dato !== "N/E") {
           var parsedValue = parseFloat(item.dato);
           if (!isNaN(parsedValue)) {
-            value = parsedValue / 1; // Convert to decimal for percentage formatting
+            value = parsedValue / 1; // No impact at all
           }
         }
         
@@ -117,7 +117,7 @@ function importSalarioMinimoData() {
     var sheetData = [];
     
     // Add headers - make sure this is an array with exactly 2 elements
-    sheetData.push(["Date (DD/MM/YYYY)", "Minimum Salary - Daily Amount in MXN"]);
+    sheetData.push(["Date (DD/MM/YYYY)", "Minimum Salary - Daily MXN"]);
     
     // Add data rows - write actual Date objects, not formatted strings
     data.forEach(function(item) {
@@ -143,7 +143,7 @@ function importSalarioMinimoData() {
         var dateRange = sheet.getRange(2, 1, sheetData.length - 1, 1);
         dateRange.setNumberFormat("dd/MM/yyyy");
         
-        // Value column formatting - percentage with 2 decimal places
+        // Value column formatting - with 4 decimal places
         var valueRange = sheet.getRange(2, 2, sheetData.length - 1, 1);
         valueRange.setNumberFormat("0.0000");
       }

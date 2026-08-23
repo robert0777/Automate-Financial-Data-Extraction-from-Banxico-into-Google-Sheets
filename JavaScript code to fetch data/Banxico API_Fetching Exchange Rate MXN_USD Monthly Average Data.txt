@@ -12,7 +12,7 @@ function importExchangeRateMXN_USDMonthlyAverageData() {
   var startDate = "1960-01-01";
   var endDate = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
   
-  // URL for data serie item - Exchange Rate MXN/USD Monthly Average (SF329) - Annual Interest Rate
+  // URL for data serie item - Exchange Rate MXN/USD Monthly Average (SF329) - Quotation
   var baseUrl = "https://www.banxico.org.mx/SieAPIRest/service/v1";
   var url = baseUrl + "/series/SF329/datos/" + startDate + "/" + endDate;
   
@@ -69,12 +69,12 @@ function importExchangeRateMXN_USDMonthlyAverageData() {
           return;
         }
         
-        // Process the value - divide by 100 for percentage formatting
+        // Process the value - divide by 1 - No impact at all
         var value = null;
         if (item.dato && item.dato !== "N/E") {
           var parsedValue = parseFloat(item.dato);
           if (!isNaN(parsedValue)) {
-            value = parsedValue / 1; // Convert to decimal for percentage formatting
+            value = parsedValue / 1; // No impact at all
           }
         }
         

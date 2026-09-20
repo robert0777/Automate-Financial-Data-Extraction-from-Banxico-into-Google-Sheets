@@ -98,3 +98,7 @@ The article provides:
 * 🏆 [Credentials on Credly](https://www.credly.com/users/robert-hernandez.89bffe7b)
 * 🐙 [GitHub Profile](https://github.com/robert0777)
 * 📧 Email: [robert@actuariayfinanzas.net](mailto:robert@actuariayfinanzas.net)
+
+## 📜 License
+
+This project is provided for educational and professional use. Please refer to the original article and Banxico's API terms for usage guidelines.

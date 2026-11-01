@@ -26,15 +26,16 @@ Each `.txt` file contains a complete Google Apps Script function ready to be cop
 | `Banxico API_Fetching TIIP 28 Data.txt` | TIIP 28-day | Interbank Interest Rate for TIIP |
 | `Banxico API_Fetching CPP Data.txt` | CPP | Average Percentage Cost Rate |
 | `Banxico API_Fetching INPC Data.txt` | INPC | National Consumer Price Index |
+| `Banxico API_Fetching Interannual Inflation Rate Data.txt` | Interannual Inflation Rate | Interannual Variation of National Consumer Price Index |
 | `Banxico API_Fetching Exchange Rate MXN_USD Daily FIX Data.txt` | MXN/USD Daily FIX | Daily exchange rate (FIX) |
 | `Banxico API_Fetching Exchange Rate MXN_USD Monthly Average Data.txt` | MXN/USD Monthly Avg | Monthly average exchange rate |
 | `Banxico API_Fetching UDIS Data.txt` | UDIS | Daily Investment Unit value |
 | `Banxico API_Fetching UDIBONOS 3-Years Data.txt` | UDIBONOS 3-Year | 3-year UDIBONOS rate |
 | `Banxico API_Fetching BONDES 3-Years Data.txt` | BONDES 3-Year | 3-year BONDES rate |
+| `Banxico API_Fetching PRLV Data.txt` | PRLV 28-day | 28-day Promissory Note with Yield Payable at Maturity (Pagaré con Rendimiento Liquidable al Vencimiento) rate |
 | `Banxico API_Fetching IPC BMV Data.txt` | IPC BMV | Mexican Stock Exchange index |
 | `Banxico API_Fetching PIB Nominal Value Quarterly Data.txt` | PIB Nominal | Quarterly nominal GDP |
 | `Banxico API_Fetching Salario Mínimo Daily MXN Data.txt` | Minimum Wage | Daily minimum wage in MXN |
-| `Banxico API_Fetching PRLV Data.txt` | PRLV | PRLV series |
 | `Banxico API_Fetching Tasa Crédito a los Hogares Data.txt` | Household Credit Rate | Interest rate for household credit |
 | `Import All Data Banxico.txt` | **All series** | Master script that fetches all the above series in one execution |
 
